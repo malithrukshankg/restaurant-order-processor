@@ -3,6 +3,7 @@ import { DataSource } from "typeorm";
 import { MenuItem } from "./entities/MenuItem";
 import { Order } from "./entities/Order";
 import { OrderItem } from "./entities/OrderItem";
+import { User } from "./entities/User";
 
 /**
  * Main TypeORM datasource for the backend.
@@ -20,5 +21,5 @@ export const AppDataSource = new DataSource({
   logging: false,
 
   // Register entities here
-  entities: [MenuItem, Order, OrderItem],
+  entities: [User, MenuItem, Order, OrderItem],
 });
