@@ -19,3 +19,8 @@ build/
 
 
 
+# SQLite DB files
+# Ignore database files if you DO NOT want to commit them
+*.db
+*.sqlite
+*.sqlite3
