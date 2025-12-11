@@ -1,6 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { OrderItem } from "./OrderItem";
 
+export type DrinkSize = "SMALL" | "LARGE" | null;
+export type MenuItemType = "BURGER" | "DRINK";
+
 @Entity()
 export class MenuItem {
   @PrimaryGeneratedColumn()
@@ -12,8 +15,11 @@ export class MenuItem {
   @Column("real")
   price!: number;
 
-  @Column()
-  category!: string;
+  @Column({ type: "text" })
+  type!: MenuItemType;
+
+   @Column({ type: "text", nullable: true })
+  size!: DrinkSize;
 
   @Column({ default: true })
   isActive!: boolean;

@@ -7,17 +7,14 @@ async function seed() {
 
   const menuRepo = AppDataSource.getRepository(MenuItem);
 
-  
+
   await menuRepo.clear();
 
   await menuRepo.save([
-    { name: "Margherita Pizza", price: 18.5, category: "Main", isActive: true },
-    { name: "Pepperoni Pizza", price: 20.0, category: "Main", isActive: true },
-    { name: "BBQ Chicken Pizza", price: 22.0, category: "Main", isActive: true },
-    { name: "Garlic Bread", price: 7.5, category: "Starter", isActive: true },
-    { name: "Cheesy Garlic Bread", price: 8.5, category: "Starter", isActive: true },
-    { name: "Coke", price: 4.0, category: "Drink", isActive: true },
-    { name: "Sprite", price: 4.0, category: "Drink", isActive: true },
+    { name: "Cheeseburger", type: "BURGER", size: null, price: 15, isActive: true },
+    { name: "Chicken burger", type: "BURGER", size: null, price: 20, isActive: true },
+    { name: "Soft drink", type: "DRINK", size: "SMALL", price: 4, isActive: true },
+    { name: "Soft drink", type: "DRINK", size: "LARGE", price: 5, isActive: true },
   ]);
 
   console.log("Seeded menu items");
