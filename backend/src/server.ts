@@ -1,23 +1,31 @@
-import express from 'express';
+import "reflect-metadata";
+import express from "express";
+import cors from "cors";
+import { AppDataSource } from "./data-source";
+import menuRoutes from "./routes/menuRoutes";
 
-export function createServer() {
-  const app = express();
+const app = express();
+const PORT = process.env.PORT || 4000;
 
-  app.use(express.json());
+app.use(cors());
+app.use(express.json());
 
-  // Simple healthcheck endpoint for sanity/tests
-  app.get('/health', (_req, res) => {
-    res.json({ status: 'ok' });
+app.get("/health", (_req, res) => {
+  res.json({ status: "ok" });
+});
+
+app.use("/api/menu", menuRoutes);
+
+// init DB first, THEN start server
+AppDataSource.initialize()
+  .then(() => {
+    console.log(" Data source initialized");
+
+    app.listen(PORT, () => {
+      console.log(`Server listening on http://localhost:${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error(" Failed to initialize data source:", error);
+    process.exit(1);
   });
-
-  return app;
-}
-
-if (require.main === module) {
-  const app = createServer();
-  const port = process.env.PORT || 4000;
-
-  app.listen(port, () => {
-    console.log(`Server listening on http://localhost:${port}`);
-  });
-}
