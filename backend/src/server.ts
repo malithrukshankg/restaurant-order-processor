@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors";
 import { AppDataSource } from "./data-source";
 import menuRoutes from "./routes/menuRoutes";
+import orderRoutes from "./routes/orderRoutes";
+
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -15,6 +17,7 @@ app.get("/health", (_req, res) => {
 });
 
 app.use("/api/menu", menuRoutes);
+app.use("/api/orders", orderRoutes);
 
 // init DB first, THEN start server
 AppDataSource.initialize()
