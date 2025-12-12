@@ -70,7 +70,7 @@ export function LoginPage() {
         </form>
 
         <div className="auth-footer">
-          <Link to="/forgot-password">Forgot Password?</Link>
+          <span>Don't have an account? </span>
           <Link to="/register">Register</Link>
         </div>
 
