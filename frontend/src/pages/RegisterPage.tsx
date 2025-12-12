@@ -1,3 +1,4 @@
+import "../styles/pages/login.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../api/auth";
@@ -7,6 +8,8 @@ export function RegisterPage() {
   const nav = useNavigate();
   const { setSession } = useAuth();
 
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,7 +21,7 @@ export function RegisterPage() {
     setLoading(true);
 
     try {
-      const res = await register(email, password);
+      const res = await register(name, phone, email, password);
       // auto-login after register
       setSession(res.token, res.user);
       nav("/menu");
@@ -30,33 +33,79 @@ export function RegisterPage() {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
+    <div className="auth-container">
+      {/* Close button */}
+      <button 
+        className="auth-close" 
+        onClick={() => nav("/")}
+        aria-label="Close"
+      >
+        ×
+      </button>
 
-      <form onSubmit={onSubmit}>
-        <input
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+      {/* Left side - Register form */}
+      <div className="auth-form-wrapper">
+        <h1 className="auth-title">Member Register</h1>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <form onSubmit={onSubmit} className="auth-form">
+          <input
+            className="auth-input"
+            type="text"
+            placeholder="Type Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            autoComplete="name"
+            required
+          />
 
-        <button disabled={loading}>
-          {loading ? "Creating account..." : "Register"}
-        </button>
-      </form>
+          <input
+            className="auth-input"
+            type="tel"
+            placeholder="Type Your Phone Number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            autoComplete="tel"
+            required
+          />
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+          <input
+            className="auth-input"
+            type="email"
+            placeholder="Type Your Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
+            required
+          />
 
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
+          <input
+            className="auth-input"
+            type="password"
+            placeholder="Type Your Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="new-password"
+            required
+          />
+
+          <button className="auth-button" type="submit" disabled={loading}>
+            {loading ? "Creating account..." : "Register"}
+          </button>
+        </form>
+
+        <div className="auth-footer">
+          <span>Already have an account?</span>
+          <Link to="/login">Login</Link>
+        </div>
+
+        {error && <div className="auth-error">{error}</div>}
+      </div>
+
+      {/* Right side - Restaurant branding */}
+      <div className="auth-branding">
+        <h2>Quick Service<br />Restaurant</h2>
+        <p>Your Perfect Place for<br />Delicious Foods</p>
+      </div>
     </div>
   );
 }
