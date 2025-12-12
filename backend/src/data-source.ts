@@ -13,7 +13,7 @@ export const AppDataSource = new DataSource({
   type: "sqlite",
 
   // Local SQLite file
-  database: "dev.db",
+  database: process.env.DATABASE_URL || "/var/app/current/dev.db",
 
   // Auto-sync entity changes to the DB (only for dev)
   synchronize: true,
