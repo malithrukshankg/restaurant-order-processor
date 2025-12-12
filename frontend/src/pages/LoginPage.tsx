@@ -1,3 +1,4 @@
+import "../styles/pages/login.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../api/auth";
@@ -28,34 +29,59 @@ export function LoginPage() {
   };
 
   return (
-    <div style={{ maxWidth: 420, margin: "40px auto" }}>
-      <h1>Login</h1>
+    <div className="auth-container">
+      {/* Close button */}
+      <button 
+        className="auth-close" 
+        onClick={() => nav("/")}
+        aria-label="Close"
+      >
+        ×
+      </button>
 
-      <form onSubmit={onSubmit}>
-        <div style={{ display: "grid", gap: 10 }}>
+      {/* Left side - Login form */}
+      <div className="auth-form-wrapper">
+        <h1 className="auth-title">Member Login</h1>
+
+        <form onSubmit={onSubmit} className="auth-form">
           <input
-            placeholder="Email"
+            className="auth-input"
+            type="email"
+            placeholder="Type Your Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="email"
+            required
           />
+
           <input
-            placeholder="Password"
+            className="auth-input"
             type="password"
+            placeholder="Type Your Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"
+            required
           />
-          <button type="submit" disabled={loading}>
+
+          <button className="auth-button" type="submit" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </button>
-        </div>
-      </form>
-          <p>
-              Don’t have an account? <Link to="/register">Register</Link>
-          </p>
+        </form>
 
-      {error && <p style={{ color: "crimson" }}>{error}</p>}
+        <div className="auth-footer">
+          <Link to="/forgot-password">Forgot Password?</Link>
+          <Link to="/register">Register</Link>
+        </div>
+
+        {error && <div className="auth-error">{error}</div>}
+      </div>
+
+      {/* Right side - Restaurant branding */}
+      <div className="auth-branding">
+        <h2>Quick Service<br />Restaurant</h2>
+        <p>Your Perfect Place for<br />Delicious Foods</p>
+      </div>
     </div>
   );
 }
