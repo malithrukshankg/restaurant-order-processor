@@ -11,9 +11,9 @@ export const authController = {
   // POST /api/auth/register
   register: async (req: Request, res: Response) => {
     try {
-      const { email, password } = req.body;
+      const { name, phone, email, password } = req.body;
 
-      if (!email || !password) {
+      if (!email || !password || !name || !phone) {
         return res
           .status(400)
           .json({ message: "Email and password are required" });
@@ -27,6 +27,8 @@ export const authController = {
       const passwordHash = await bcrypt.hash(password, 10);
 
       const user = userRepo.create({
+        name,
+        phone,
         email,
         passwordHash,
         role: "customer", // default role
