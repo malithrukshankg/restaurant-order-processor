@@ -74,7 +74,13 @@ export const authController = {
         { expiresIn: "1h" }
       );
 
-      return res.json({ token });
+      return res.json({
+        token, user: {
+          userId: user.id,
+          email: user.email,
+          role: user.role,
+        }
+});
     } catch (err) {
       console.error("Login error:", err);
       return res.status(500).json({ message: "Internal server error" });
