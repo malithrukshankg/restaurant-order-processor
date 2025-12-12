@@ -8,7 +8,7 @@ import authRoutes from "./routes/authRoutes";
 
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = Number(process.env.PORT) || 8080;
 
 app.use(cors());
 app.use(express.json());
@@ -26,8 +26,8 @@ AppDataSource.initialize()
   .then(() => {
     console.log(" Data source initialized");
 
-    app.listen(PORT, () => {
-      console.log(`Server listening on http://localhost:${PORT}`);
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`Server listening on port ${PORT}`);
     });
   })
   .catch((error) => {
