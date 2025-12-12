@@ -6,7 +6,6 @@ import { useAuth } from "../context/AuthContext";
 
 export function RegisterPage() {
   const nav = useNavigate();
-  const { setSession } = useAuth();
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -14,6 +13,7 @@ export function RegisterPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,10 +21,12 @@ export function RegisterPage() {
     setLoading(true);
 
     try {
-      const res = await register(name, phone, email, password);
-      // auto-login after register
-      setSession(res.token, res.user);
-      nav("/menu");
+      await register(name, Number(phone), email, password);
+      setSuccess(true);
+      // Redirect to login after 2 seconds
+      setTimeout(() => {
+        nav("/login");
+      }, 2000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Registration failed");
     } finally {
