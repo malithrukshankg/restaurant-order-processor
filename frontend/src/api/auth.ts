@@ -8,3 +8,11 @@ export function login(email: string, password: string) {
     body: JSON.stringify({ email, password }),
   });
 }
+
+// Calls backend register endpoint to register user
+export function register(email: string, password: string) {
+  return apiFetch<LoginResponse>("/auth/register", {
+    method: "POST",
+    body: JSON.stringify({ email, password }),
+  });
+}
