@@ -3,14 +3,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getMenuItems } from "../api/menu";
 import type { MenuItem } from "../types/menuItem";
+import type { CartItem } from "../types/cart";
 import { CartSidebar } from "../components/CartSidebar";
 import { CategoryFilter } from "../components/CategoryFilter";
 import { MenuGrid } from "../components/MenuGrid";
-
-interface CartItem {
-  menuItem: MenuItem;
-  quantity: number;
-}
 
 export function MenuPage() {
   const nav = useNavigate();
