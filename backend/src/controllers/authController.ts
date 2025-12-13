@@ -1,16 +1,18 @@
+// ✅ SOLUTION 1: Get repository inside functions
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { AppDataSource } from "../data-source";
 import { User } from "../entities/User";
 
-const userRepo = AppDataSource.getRepository(User);
 const JWT_SECRET = process.env.JWT_SECRET || "dev-secret-change-me";
 
 export const authController = {
   // POST /api/auth/register
   register: async (req: Request, res: Response) => {
     try {
+      const userRepo = AppDataSource.getRepository(User); 
+      
       const { name, phone, email, password } = req.body;
 
       if (!email || !password || !name || !phone) {
@@ -31,7 +33,7 @@ export const authController = {
         phone,
         email,
         passwordHash,
-        role: "customer", // default role
+        role: "customer",
       });
 
       await userRepo.save(user);
@@ -48,6 +50,8 @@ export const authController = {
   // POST /api/auth/login
   login: async (req: Request, res: Response) => {
     try {
+      const userRepo = AppDataSource.getRepository(User); 
+      
       const { email, password } = req.body;
 
       if (!email || !password) {
@@ -77,12 +81,13 @@ export const authController = {
       );
 
       return res.json({
-        token, user: {
+        token,
+        user: {
           userId: user.id,
           email: user.email,
           role: user.role,
-        }
-});
+        },
+      });
     } catch (err) {
       console.error("Login error:", err);
       return res.status(500).json({ message: "Internal server error" });
