@@ -1,8 +1,8 @@
 import "../styles/pages/menu.css";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getMenuItems } from "../api/menu";
 import type { MenuItem } from "../types/menuItem";
-import { MenuHeader } from "../components/MenuHeader";
 import { CartSidebar } from "../components/CartSidebar";
 import { CategoryFilter } from "../components/CategoryFilter";
 import { MenuGrid } from "../components/MenuGrid";
@@ -13,6 +13,7 @@ interface CartItem {
 }
 
 export function MenuPage() {
+  const nav = useNavigate();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -68,8 +69,22 @@ export function MenuPage() {
   };
 
   const handleCheckout = () => {
-    // TODO: Implement checkout logic
-    console.log("Proceeding to checkout with cart:", cart);
+    if (cart.length === 0) {
+      return;
+    }
+    
+    const total = cart.reduce((sum, item) => sum + item.menuItem.price * item.quantity, 0);
+    
+    // Navigate to checkout and clear cart after successful order
+    nav("/checkout", { 
+      state: { 
+        cart, 
+        total 
+      } 
+    });
+    
+    // Clear cart after navigating
+    clearCart();
   };
 
   const filteredItems = menuItems.filter((item) => {
@@ -91,8 +106,6 @@ export function MenuPage() {
 
   return (
     <div className="menu-page">
-      <MenuHeader />
-
       <div className="menu-container">
         <CartSidebar
           cart={cart}
