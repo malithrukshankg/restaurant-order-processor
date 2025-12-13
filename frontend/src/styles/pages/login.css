@@ -172,6 +172,21 @@ body {
   text-align: center;
 }
 
+/* Success message */
+.auth-success {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 15px;
+  padding: 12px;
+  background: #d4edda;
+  color: #155724;
+  border-radius: 6px;
+  font-size: 13px;
+  text-align: center;
+}
+
 /* Branding on right side */
 .auth-branding {
   position: absolute;

@@ -10,9 +10,9 @@ export function login(email: string, password: string) {
 }
 
 // Calls backend register endpoint to register user
-export function register(name:string, phone:number, email: string, password: string) {
-  return apiFetch<LoginResponse>("/auth/register", {
+export function register(name: string, phone: number, email: string, password: string) {
+  return apiFetch<{ message: string }>("/auth/register", {
     method: "POST",
-    body: JSON.stringify({ name,phone, email, password }),
+    body: JSON.stringify({ name, phone, email, password }),
   });
 }
