@@ -163,8 +163,30 @@
 
 .cart-items {
   max-height: 400px;
-  overflow-y: auto;
+  overflow-y: scroll; /* Changed from auto to scroll to always show scrollbar */
   margin-bottom: 20px;
+  padding-right: 5px;
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #c41e3a #f0f0f0; /* For Firefox */
+}
+
+/* Scrollbar styling for Webkit browsers (Chrome, Safari, Edge) */
+.cart-items::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cart-items::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.cart-items::-webkit-scrollbar-thumb {
+  background: #c41e3a;
+  border-radius: 10px;
+}
+
+.cart-items::-webkit-scrollbar-thumb:hover {
+  background: #a01829;
 }
 
 .cart-item {
@@ -291,6 +313,30 @@
 /* Main Menu Area */
 .menu-main {
   min-height: 500px;
+  max-height: calc(100vh - 200px); /* Limit height based on viewport */
+  overflow-y: auto;
+  padding-right: 10px;
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #c41e3a #f0f0f0; /* For Firefox */
+}
+
+/* Scrollbar styling for main menu area */
+.menu-main::-webkit-scrollbar {
+  width: 8px;
+}
+
+.menu-main::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.menu-main::-webkit-scrollbar-thumb {
+  background: #c41e3a;
+  border-radius: 10px;
+}
+
+.menu-main::-webkit-scrollbar-thumb:hover {
+  background: #a01829;
 }
 
 .menu-error {
