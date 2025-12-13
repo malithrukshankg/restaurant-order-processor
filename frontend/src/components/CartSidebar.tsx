@@ -1,13 +1,9 @@
 import type { MenuItem } from "../types/menuItem";
-import { CartItem } from "./CartItem";
-
-interface CartItemData {
-  menuItem: MenuItem;
-  quantity: number;
-}
+import type { CartItem } from "../types/cart";
+import { CartItem as CartItemComponent } from "./CartItem";
 
 interface CartSidebarProps {
-  cart: CartItemData[];
+  cart: CartItem[];
   onAddToCart: (item: MenuItem) => void;
   onRemoveFromCart: (itemId: number) => void;
   onClearCart: () => void;
@@ -45,7 +41,7 @@ export function CartSidebar({
         <>
           <div className="cart-items">
             {cart.map((item) => (
-              <CartItem
+              <CartItemComponent
                 key={item.menuItem.id}
                 item={item.menuItem}
                 quantity={item.quantity}
