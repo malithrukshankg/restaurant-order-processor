@@ -20,6 +20,7 @@ export const createMenuItemSchema = z.object({
   price: z.number().positive("Price must be positive"),
   size: z.enum(["SMALL", "LARGE"]).nullable().optional(),
   isActive: z.boolean().default(true),
+  type: z.enum(["BURGER", "DRINK"])
 });
 
 // Schema for updating a menu item (admin only)
