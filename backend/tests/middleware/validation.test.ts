@@ -59,7 +59,7 @@ describe("Validation Middleware", () => {
 
       expect(mockResponse.status).toHaveBeenCalledWith(400);
       expect(mockResponse.json).toHaveBeenCalledWith({
-        message: "Request body validation failed",
+        message: "Please enter required fields",
         errors: expect.objectContaining({
           fieldErrors: expect.any(Object),
         }),
