@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from '../../context/AuthContext'
 import { MenuPage } from '../../pages/MenuPage'
 import * as menuAPI from '../../api/menu'
-import * as orderAPI from '../../api/order'
 
 vi.mock('../../api/menu')
 vi.mock('../../api/order')

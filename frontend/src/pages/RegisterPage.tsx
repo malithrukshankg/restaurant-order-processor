@@ -2,7 +2,6 @@ import "../styles/pages/login.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../api/auth";
-import { useAuth } from "../context/AuthContext";
 
 export function RegisterPage() {
   const nav = useNavigate();
@@ -13,12 +12,13 @@ export function RegisterPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
+  const [, setSuccess] = useState(false);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
+
 
     try {
       await register(name, Number(phone), email, password);
