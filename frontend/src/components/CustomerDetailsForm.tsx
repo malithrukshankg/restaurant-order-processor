@@ -29,7 +29,7 @@ export function CustomerDetailsForm({
 
       <form onSubmit={onSubmit} className="checkout-form">
         <div className="form-group">
-          <label htmlFor="customerName">Name (Optional)</label>
+          <label htmlFor="customerName">Name </label>
           <input
             id="customerName"
             type="text"
@@ -41,7 +41,7 @@ export function CustomerDetailsForm({
         </div>
 
         <div className="form-group">
-          <label htmlFor="tableNumber">Table Number (Optional)</label>
+          <label htmlFor="tableNumber">Table Number </label>
           <input
             id="tableNumber"
             type="text"
