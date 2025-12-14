@@ -41,7 +41,7 @@ export function LoginPage() {
 
       {/* Left side - Login form */}
       <div className="auth-form-wrapper">
-        <h1 className="auth-title">Login</h1>
+        <h1 className="auth-title">Member Login</h1>
 
         <form onSubmit={onSubmit} className="auth-form">
           <input
