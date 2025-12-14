@@ -56,6 +56,7 @@ jobs:
             cd ~/restaurant-order-processor/backend
             npm ci
             npm run build
+            npm run seed
             pm2 restart restaurant-api
             pm2 save
 
