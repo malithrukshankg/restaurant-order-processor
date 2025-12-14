@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="#c41e3a"/>
+  
+  <!-- Fork -->
+  <g fill="white">
+    <rect x="30" y="35" width="3" height="40" rx="1.5"/>
+    <rect x="36" y="35" width="3" height="40" rx="1.5"/>
+    <rect x="33" y="30" width="3" height="15" rx="1.5"/>
+  </g>
+  
+  <!-- Knife -->
+  <g fill="white">
+    <rect x="60" y="35" width="4" height="40" rx="2"/>
+    <polygon points="60,30 64,30 67,35 57,35"/>
+  </g>
+</svg>
