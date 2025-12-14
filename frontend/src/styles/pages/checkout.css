@@ -12,28 +12,62 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
+  align-items: start; /* Changed from default to prevent stretching */
 }
 
-/* Order Summary */
+/* Order Summary - FIXED */
 .order-summary {
   background: white;
   border-radius: 12px;
   padding: 30px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  height: fit-content;
+  max-height: calc(100vh - 200px); /* Limit height to viewport */
+  display: flex;
+  flex-direction: column;
+  position: sticky; /* Make it sticky while scrolling */
+  top: 100px; /* Stick below header */
 }
 
 .order-summary h2 {
   font-size: 22px;
   margin-bottom: 25px;
   color: #333;
+  flex-shrink: 0; /* Don't shrink the heading */
 }
 
+/* Scrollable items area - THIS IS THE KEY FIX */
 .summary-items {
   margin-bottom: 25px;
-  max-height: 400px;
-  overflow-y: auto;
+  flex: 1; /* Take available space */
+  overflow-y: auto; /* Add scroll when needed */
+  overflow-x: hidden;
   padding-right: 10px;
+  min-height: 0; /* Important for flex scrolling */
+}
+
+/* Custom scrollbar for summary items */
+.summary-items::-webkit-scrollbar {
+  width: 8px;
+}
+
+.summary-items::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.summary-items::-webkit-scrollbar-thumb {
+  background: #c41e3a;
+  border-radius: 10px;
+}
+
+.summary-items::-webkit-scrollbar-thumb:hover {
+  background: #a01829;
+}
+
+/* Firefox scrollbar */
+.summary-items {
+  scrollbar-width: thin;
+  scrollbar-color: #c41e3a #f0f0f0;
 }
 
 .summary-item {
@@ -69,9 +103,13 @@
   font-weight: 700;
 }
 
+/* Totals section - ALWAYS VISIBLE */
 .summary-totals {
   border-top: 2px solid #f0f0f0;
   padding-top: 20px;
+  flex-shrink: 0; /* Don't shrink the totals */
+  background: white; /* Ensure it has background */
+  margin-top: auto; /* Push to bottom */
 }
 
 .summary-row {
@@ -201,5 +239,36 @@
   .checkout-container {
     grid-template-columns: 1fr;
     padding: 20px;
+  }
+
+  .order-summary {
+    position: relative; /* Remove sticky on mobile */
+    top: auto;
+    max-height: 60vh; /* Smaller on mobile */
+  }
+}
+
+/* Small screens */
+@media (max-width: 768px) {
+  .checkout-container {
+    padding: 15px;
+  }
+
+  .order-summary,
+  .checkout-form-wrapper {
+    padding: 20px;
+  }
+
+  .order-summary h2,
+  .checkout-form-wrapper h2 {
+    font-size: 18px;
+  }
+
+  .summary-item-info h4 {
+    font-size: 14px;
+  }
+
+  .total-amount {
+    font-size: 24px;
   }
 }
