@@ -1,0 +1,52 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Upload project to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "backend,frontend"
+          target: "~/deploy_tmp"
+
+      - name: Build and restart on EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+
+            mkdir -p ~/restaurant-order-processor
+            rm -rf ~/restaurant-order-processor/backend ~/restaurant-order-processor/frontend
+            mv ~/deploy_tmp/backend ~/restaurant-order-processor/backend
+            mv ~/deploy_tmp/frontend ~/restaurant-order-processor/frontend
+            rm -rf ~/deploy_tmp
+
+            # Backend
+            cd ~/restaurant-order-processor/backend
+            npm ci
+            npm run build
+            pm2 restart restaurant-api
+            pm2 save
+
+            # Frontend
+            cd ~/restaurant-order-processor/frontend
+            npm ci
+            npm run build
+            sudo mkdir -p /var/www/restaurant-frontend
+            sudo rsync -a --delete dist/ /var/www/restaurant-frontend/
+            sudo systemctl reload nginx
