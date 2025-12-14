@@ -11,7 +11,7 @@ export const validateBody =
       const formatted = result.error.flatten();
 
       return res.status(400).json({
-        message: "Request body validation failed",
+        message: "Please enter required fields",
         errors: formatted, // contains fieldErrors & formErrors
       });
     }
